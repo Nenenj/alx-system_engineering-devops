@@ -1,5 +1,5 @@
 #!/usr/bin/env bas
-# Prints 'To infinity and beyond' indefinitely, with 2s sleep b/w each iteration
+## Prints 'To infinity and beyond' indefinitely, with 2s sleep b/w each iteration
 while true; do
 	echo "To infinity and beyond"
 	sleep 2
