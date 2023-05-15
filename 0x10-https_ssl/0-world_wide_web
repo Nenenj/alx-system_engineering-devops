@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
-# Displays informtation about subdomains.
-
-# uncomment for debugging purposes.
-#set -x
-
-# for the checker to work please remove the colors.
-
-# colors
-blue='\e[1;34m'
-brown='\e[0;33m'
-reset='\033[0m'
+# Displays information about subdomains.
 
 # variables & parameters
 subdomains=( "www" "lb-01" "web-01" "web-02" )
