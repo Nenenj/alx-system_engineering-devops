@@ -40,7 +40,7 @@ defaults
 
 frontend nenenj.tech
         bind 0:80
-        bind 0:443 ssl crt /etc/ssl/private/nenenj.tech.pem
+        bind 0:443 ssl crt /etc/ssl/private/nenenj.tech/mykey.pem
         http-request redirect scheme https code 301 unless { ssl_fc }
         option forwardfor
         default_backend nenenj.tech_backend
