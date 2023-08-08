@@ -34,14 +34,13 @@ def get_employee_todo_progress(employee_id):
         todos_data = response.json()
 
         # Count the number of completed tasks
-        completed_tasks = [todo for todo in todos_data if get(todo, 'completed')]
+        completed_tasks = [todo for todo in todos_data if todo.get('completed')]
         num_completed_tasks = len(completed_tasks)
         total_num_tasks = len(todos_data)
 
         # Display the progress information
-        print(f"Employee {employee_data['name']} is done with tasks "
-                f"({num_completed_tasks}/{total_num_tasks}):")
-
+        print(f"Employee {employee_data['name']} is done with tasks
+                "f"({num_completed_tasks}/{total_num_tasks}) :" )
         # Display the titles of completed tasks
         for task in completed_tasks:
             print(f"\t{task['title']}")
@@ -49,7 +48,8 @@ def get_employee_todo_progress(employee_id):
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
 
-if __name__ == "__main__":
-    # Example usage
-    employee_id = 1  # Change this to the desired employee ID
-    get_employee_todo_progress(employee_id)
+        if __name__ == "__main__":
+        # Example usage
+        employee_id = 1
+        # Change this to the desired employee ID
+        get_employee_todo_progress(employee_id)
