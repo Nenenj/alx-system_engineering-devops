@@ -1,35 +1,35 @@
 #!/usr/bin/python3
 
 """
-Fetches and displays employee TODO list progress using the provided REST API.
+Retrives info on employee TODO list progress using the provided REST API.
 """
 
 import requests
 import sys
 
 
-def fetch_employee_todo_list(employee_id):
+def fetch_employee_todo_progress(employee_id):
 
-    url = "https://jsonplaceholder.typicode.com/"
-    user_response = request.get(url + "users/{}".format(employee_id))
-    todo_response = request.get(url + "todos", params={"userId": employee_id})
+    base_url = "https://jsonplaceholder.typicode.com/"
+    user_response = requests.get(f"{base_url}users/{employee_id}")
+    todo_response = requests.get(f"{base_url}todos?userId={employee_id}")
 
-    if user_response.status_code == 200 and todo_response.status_code == 200:
+    if user_response.status_code != 200 or todo_response.status_code != 200:
         print("Error fetching data.")
         return
 
-    user = user_response.json()
-    todos = todo_response.json()
+    user_data = user_response.json()
+    todo_data = todo_response.json()
 
-    completed = [t.get("title") for t in todos if t.get("completed") is True]
-    employee_name = "Employee Name: OK"
-    print(f"{Employee_name:<18}\n\nTo Do Count: OK")
-    print("\nEmployee {} is done with tasks({}/{}):".format(
-        user.get("name"), len(completed), len(todos)))
-    for idx, c in enumerate(completed, start=1):
-        task_formatting = f"Task {idx} Formatting: OK"
-        print(task_formatting)
-        print("\t {}".format(c))
+    completed_tasks = [task for task in todo_data if task["completed"]]
+    num_completed_tasks = len(completed_tasks)
+    total_num_tasks = len(todo_data)
+
+    print("Employee {} is done with tasks({}/{}):".format(
+        user_data["name"], num_completed_tasks, total_num_tasks))
+
+    for task in completed_tasks:
+        print("\t{}".format(task["title"]))
 
 
 if __name__ == "__main__":
@@ -38,4 +38,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     employee_id = int(sys.argv[1])
-    fetch_employee_todo_list(employee_id)
+    fetch_employee_todo_progress(employee_id)
