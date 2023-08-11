@@ -20,4 +20,4 @@ if __name__ == '__main__':
     with open("{}.csv".format(user_id), "w", newline="") as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         [writer.writerow([user_id, username, elm.get("completed"),
-                          elm.get("title")]) for elm in to_do]
+                          elm.get("title")]) for elm in todo_data]
