@@ -2,20 +2,27 @@
 # configures a new HAproxy as a load balancer
 
 # Install HAproxy on a server
-apt-get -y update
-apt-get -y install haproxy=1.6.\*
+sudo apt-get update
+sudo apt install -y haproxy
 
-# Configure haproxy configuration file to distribute requests using a roundrobin algorithm
+# Configure Haproxy to send traffic to web-01 and web-02
 echo '
-frontend nenenj.tech
-        bind 0:80
-	default_backend web_servers
+frontend nenenj_frontend
+	mode http
+        bind *:80
+	default_backend nenenj_backend
 
-backend web_servers
+backend nenenj_backend
+	mode http
 	balance roundrobin
-	server 158410-web-01 54.90.52.157:80
-	server 158410-web-02 52.86.131.234:80
-' >> /etc/haproxy/haproxy.cfg
+	server 158410-web-01 52.3.251.115:80
+	server 158410-web-02 54.208.17.71:80
+	timeout connect 30s
+	timeout server 30s
+' | sudo tee /etc/haproxy/haproxy.cfg > /dev/null
 
-# Restart HAproxy service
-service haproxy restart
+# Enable HAproxy init script
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+
+#Restart Haproxy
+sudo service haproxy restart
