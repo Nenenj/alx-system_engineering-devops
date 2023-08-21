@@ -1,6 +1,6 @@
-# This manifest creates a file at /tmp
+# Puppet manifest creates a file at /tmp
 file { '/tmp/school':
-    ensure  => 'file',
+    ensure  => 'present',
     owner   => 'www-data',
     group   => 'www-data',
     mode    => '0744',
