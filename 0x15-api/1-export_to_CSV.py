@@ -1,23 +1,49 @@
 #!/usr/bin/python3
 """Export API data to CSV"""
 
+import requests
 import csv
-import requests as r
 import sys
 
-if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: {} <user_id>".format(sys.argv[0]))
+def get_employee_todo_progress(employee_id):
+    # Define the API URL
+    base_url = 'https://jsonplaceholder.typicode.com/'
+    todo_url = f'{base_url}todos'
+    user_url = f'{base_url}users/{employee_id}'
+
+    try:
+        # Fetch user data
+        user_response = requests.get(user_url)
+        user_data = user_response.json()
+        
+        # Fetch user's TODO list
+        todo_response = requests.get(todo_url, params={'userId': employee_id})
+        todo_list = todo_response.json()
+
+        # Create CSV file name
+        csv_filename = f'{employee_id}.csv'
+
+        # Write TODO list data to CSV file
+        with open(csv_filename, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            
+            # Write header row
+            csv_writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
+            
+            # Write task data
+            for task in todo_list:
+                csv_writer.writerow([user_data['id'], user_data['username'], task['completed'], task['title']])
+
+        print(f"Data exported to {csv_filename}")
+    
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
         sys.exit(1)
 
-    user_id = sys.argv[1]
-    url = 'https://jsonplaceholder.typicode.com/'
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <employee_id>")
+        sys.exit(1)
 
-    user_data = r.get(url + "users/{}".format(user_id)).json()
-    username = user_data.get("username")
-    todo_data = r.get(url + "todos", params={"userId": user_id}).json()
-
-    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
-        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-        [writer.writerow([user_id, username, elm.get("completed"),
-                          elm.get("title")]) for elm in todo_data]
+    employee_id = int(sys.argv[1])
+    get_employee_todo_progress(employee_id)
