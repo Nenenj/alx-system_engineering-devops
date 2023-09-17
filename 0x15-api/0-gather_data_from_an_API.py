@@ -5,6 +5,7 @@ returns information about his/her TODO list progress."""
 import requests
 import sys
 
+
 def get_employee_todo_progress(employee_id):
     # Define the API URL
     base_url = 'https://jsonplaceholder.typicode.com/'
@@ -15,7 +16,6 @@ def get_employee_todo_progress(employee_id):
         # Fetch user data
         user_response = requests.get(user_url)
         user_data = user_response.json()
-        
         # Fetch user's TODO list
         todo_response = requests.get(todo_url, params={'userId': employee_id})
         todo_list = todo_response.json()
@@ -26,15 +26,15 @@ def get_employee_todo_progress(employee_id):
         total_tasks = len(todo_list)
 
         # Display employee TODO list progress
-        print(f"Employee {user_data['name']} is done with tasks ({num_completed_tasks}/{total_tasks}):")
-        
+        print(f"Employee {user_data['name']} is done with tasks "
+              f"({num_completed_tasks}/{total_tasks}):")
         # Display titles of completed tasks
         for task in completed_tasks:
             print(f"\t{task['title']}")
-    
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -43,4 +43,3 @@ if __name__ == "__main__":
 
     employee_id = int(sys.argv[1])
     get_employee_todo_progress(employee_id)
-
