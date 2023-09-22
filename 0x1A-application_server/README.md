@@ -9,7 +9,7 @@ Upstart script to keep the application running on server reboots.
 
 * **0. Set up development with Python**
   * In this task, I configured the file `web_flask/0-hello_route.py` from my
-  [AirBnB_clone_v2](https://github.com/aysuarex/AirBnB_clone_v2) to serve content
+  [AirBnB_clone_v2](https://github.com/nenenj/AirBnB_clone_v2) to serve content
   on the route `/airbnb-onepage/`, running on port `5000`.
 
 * **1. Set up production with Gunicorn**
@@ -27,7 +27,7 @@ Upstart script to keep the application running on server reboots.
   Gunicorn app running on port `5000`.
 
 * **4. Let's do this for your API**
-  * In this task, I configured the API from my [AirBnB_clone_v3](https://github.com/Tijani1402/AirBnB_clone_v31) to run on Gunicorn.
+  * In this task, I configured the API from my [AirBnB_clone_v3](https://github.com/nenenj/AirBnB_clone_v31) to run on Gunicorn.
   * [4-app_server-nginx_config](./4-app_server-nginx_config): Nginx configuration file
   that proxies requests on the AirBnB API to the corresponding Gunicorn app.
 
