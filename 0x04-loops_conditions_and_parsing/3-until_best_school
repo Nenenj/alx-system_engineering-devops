@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# Bash script that displays Best School 10 times
-n=0
-until [ $((n++)) -gt 9 ]; do
-        echo Best School
-done
