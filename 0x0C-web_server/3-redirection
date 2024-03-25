@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Script that configures a new Nginx Ubuntu server in other for redirect_me to redirect to another page
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+
+# Configure nginx to redirect /redirect_me to youtube.com with 301 Moved Permanently
+sudo sed -i '/^.*server_name.*;/a \\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/;\n\t}\n' /etc/nginx/sites-available/default
+
+# Restart nginx to apply changes
+sudo service nginx restart
