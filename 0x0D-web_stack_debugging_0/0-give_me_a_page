@@ -1,3 +1,13 @@
-#!/usr/bin/env bash                                                             
-#start apache2 inside docker                                                     
-service apache2 start
+#!/usr/bin/env bash
+
+#Access the Docker container where Apache is running
+sudo docker exec -it bfaacc9f94f5 /bin/bash
+
+# Edit the Apache configuration file to set the ServerName directive
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Restart the Apache service
+service apache2 restart
+
+# Exit the Docker container
+exit
