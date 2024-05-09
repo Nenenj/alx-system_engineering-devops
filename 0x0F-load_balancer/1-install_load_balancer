@@ -16,7 +16,7 @@ backend nenenj_backend
 	mode http
 	balance roundrobin
 	server 158410-web-01 34.207.188.17:80
-	server 158410-web-02 54.165.223.126:80
+	server 158410-web-02 3.80.18.10:80
 	timeout connect 30s
 	timeout server 30s
 ' | sudo tee /etc/haproxy/haproxy.cfg > /dev/null

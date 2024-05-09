@@ -46,4 +46,4 @@ frontend mynenenj_frontend
 backend mynenenj_backend
         balance roundrobin
         server 158410-web-01 34.207.188.17:80 check
-        server 158410-web-02 54.165.223.126:80 check
+        server 158410-web-02 3.80.18.10:80 check
