@@ -5,10 +5,10 @@
 During the release of ALX School’s System Engineering & Dev Ops project 0x19, I encountered an outage on an isolated Ubuntu 14.04 container hosting an Apache web server. GET requests to the server resulted in 500 Internal Server Error responses instead of the expected HTML file for a Holberton WordPress site.
 
 ## Debugging Process:
-> Process Verification: I verified running processes using the ps aux command, confirming both apache2 processes were functioning.
-> Apache Configuration Inspection: Reviewing the /etc/apache2/sites-available/ directory, I found the correct configuration to serve content from /var/www/html/.
-> Strace Analysis for Root Process: Employing strace on the root Apache process PID while sending a GET request, I found no actionable insights.
-> Strace Analysis for www-data Process: Further analysis using strace on the www-data process PID revealed an -1 ENOENT (No such file or directory) error attempting to access /var/www/html/wp-includes/class-wp-locale.phpp.
+1. Process Verification: I verified running processes using the ps aux command, confirming both apache2 processes were functioning.
+2. Apache Configuration Inspection: Reviewing the /etc/apache2/sites-available/ directory, I found the correct configuration to serve content from /var/www/html/.
+3. Strace Analysis for Root Process: Employing strace on the root Apache process PID while sending a GET request, I found no actionable insights.
+4. Strace Analysis for www-data Process: Further analysis using strace on the www-data process PID revealed an -1 ENOENT (No such file or directory) error attempting to access /var/www/html/wp-includes/class-wp-locale.phpp.
 Identification of the Issue: I discovered a typo with a .phpp file extension instead of .php in the wp-settings.php file, causing the critical error.
 
 ## Resolution: Correcting the typo by removing the extraneous 'p' from the file path.
